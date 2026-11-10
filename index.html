@@ -1,0 +1,507 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Self-Organizing Maps | SOM</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Archivo principal de JavaScript -->
+    <script type="module" src="js/main.js"></script>
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="tag">INTELIGENCIA ARTIFICIAL</span>
+
+            <h1>
+                Self-Organizing Maps
+                <span>(SOM)</span>
+            </h1>
+
+            <p>
+                Descubre cómo una red neuronal aprende a organizar
+                datos similares en un mapa bidimensional sin
+                necesidad de recibir categorías previamente.
+            </p>
+
+            <a href="#arquitectura" class="hero-button">
+                Explorar funcionamiento ↓
+            </a>
+        </div>
+
+        <div class="hero-decoration">
+            <div class="decoration-grid">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+
+        <!-- 1. ARQUITECTURA -->
+        <section class="section" id="arquitectura">
+
+            <div class="section-heading">
+                <span class="section-number">01 / ARQUITECTURA</span>
+
+                <h2>¿Cómo está construido un SOM?</h2>
+
+                <p>
+                    Un mapa autoorganizado recibe datos de entrada y
+                    los compara con una cuadrícula de neuronas.
+                    Cada neurona tiene un vector de pesos que se
+                    modifica durante el aprendizaje.
+                </p>
+            </div>
+
+            <div class="architecture-grid">
+
+                <!-- DATOS DE ENTRADA -->
+                <article class="architecture-card">
+                    <span class="card-number">01</span>
+
+                    <h3>Datos de entrada</h3>
+
+                    <p>
+                        Son los datos que queremos organizar.
+                        Cada ejemplo se representa mediante un
+                        vector de características.
+                    </p>
+
+                    <div class="vector-box">
+                        <span>Ejemplo de vector</span>
+
+                        <div class="vector-values">
+                            <b>0.20</b>
+                            <b>0.75</b>
+                            <b>0.40</b>
+                        </div>
+
+                        <small>X = [x₁, x₂, x₃]</small>
+                    </div>
+                </article>
+
+                <div class="arrow">→</div>
+
+                <!-- CAPA DE NEURONAS -->
+                <article class="architecture-card">
+                    <span class="card-number">02</span>
+
+                    <h3>Capa de neuronas</h3>
+
+                    <p>
+                        Cada neurona posee un vector de pesos.
+                        Estos pesos se comparan con los datos
+                        de entrada para encontrar la neurona
+                        más parecida.
+                    </p>
+
+                    <div class="neuron-illustration">
+                        <div class="neuron-center">W</div>
+                        <span class="neuron n1"></span>
+                        <span class="neuron n2"></span>
+                        <span class="neuron n3"></span>
+                        <span class="neuron n4"></span>
+                        <span class="neuron n5"></span>
+                        <span class="neuron n6"></span>
+                    </div>
+
+                    <small class="caption">
+                        W representa los pesos de una neurona.
+                    </small>
+                </article>
+
+                <div class="arrow">→</div>
+
+                <!-- MAPA BIDIMENSIONAL -->
+                <article class="architecture-card">
+                    <span class="card-number">03</span>
+
+                    <h3>Mapa bidimensional</h3>
+
+                    <p>
+                        Las neuronas se distribuyen en una
+                        cuadrícula. Las neuronas cercanas
+                        mantienen una relación de vecindad.
+                    </p>
+
+                    <div class="mini-map" aria-label="Cuadrícula de neuronas">
+                        <span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span class="winner"></span><span></span>
+                        <span></span><span class="neighbor"></span><span class="neighbor"></span><span></span>
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+
+                    <small class="caption">
+                        Cada celda representa una neurona.
+                    </small>
+                </article>
+
+            </div>
+
+            <div class="info-note">
+                <strong>Conexiones entre neuronas:</strong>
+                representan la relación de vecindad entre ellas.
+                Cuando una neurona aprende, sus neuronas cercanas
+                también ajustan sus pesos.
+            </div>
+
+        </section>
+
+
+        <!-- 2. PASOS DEL ALGORITMO -->
+        <section class="section" id="proceso">
+
+            <div class="section-heading">
+                <span class="section-number">02 / PROCESO</span>
+
+                <h2>¿Cómo aprende el SOM?</h2>
+
+                <p>
+                    El algoritmo sigue una serie de pasos que se
+                    repiten durante el entrenamiento. Selecciona
+                    cada etapa para conocer qué ocurre.
+                </p>
+            </div>
+
+            <div class="steps-container">
+
+                <div class="steps-menu">
+
+                    <button class="step-button active" data-step="0">
+                        <span>1</span>
+                        <div>
+                            <b>Inicialización</b>
+                            <small>Se crean las neuronas y sus pesos.</small>
+                        </div>
+                    </button>
+
+                    <button class="step-button" data-step="1">
+                        <span>2</span>
+                        <div>
+                            <b>Dato de entrada</b>
+                            <small>Se selecciona un ejemplo.</small>
+                        </div>
+                    </button>
+
+                    <button class="step-button" data-step="2">
+                        <span>3</span>
+                        <div>
+                            <b>Neurona ganadora</b>
+                            <small>Se encuentra la BMU.</small>
+                        </div>
+                    </button>
+
+                    <button class="step-button" data-step="3">
+                        <span>4</span>
+                        <div>
+                            <b>Vecindad</b>
+                            <small>Se identifican neuronas cercanas.</small>
+                        </div>
+                    </button>
+
+                    <button class="step-button" data-step="4">
+                        <span>5</span>
+                        <div>
+                            <b>Actualización</b>
+                            <small>Se modifican los pesos.</small>
+                        </div>
+                    </button>
+
+                    <button class="step-button" data-step="5">
+                        <span>6</span>
+                        <div>
+                            <b>Repetición</b>
+                            <small>El mapa se organiza.</small>
+                        </div>
+                    </button>
+
+                </div>
+
+                <article class="step-content">
+
+                    <span class="step-indicator" id="step-indicator">
+                        PASO 1 DE 6
+                    </span>
+
+                    <h3 id="step-title">
+                        Inicialización de la red
+                    </h3>
+
+                    <p id="step-description">
+                        Se crea una cuadrícula de neuronas.
+                        Cada una recibe un vector de pesos inicial,
+                        normalmente asignado aleatoriamente.
+                    </p>
+
+                    <div class="formula-box">
+                        <span>IDEA MATEMÁTICA</span>
+
+                        <strong id="step-formula">
+                            wᵢ = [w₁, w₂, ..., wₙ]
+                        </strong>
+
+                        <small id="step-note">
+                            Cada neurona comienza con un conjunto de pesos.
+                        </small>
+                    </div>
+
+                    <div class="step-controls">
+                        <button id="previous-step" class="secondary-button" disabled>
+                            ← Anterior
+                        </button>
+
+                        <button id="next-step" class="primary-button">
+                            Siguiente paso →
+                        </button>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- 3. SIMULACIÓN -->
+        <section class="section" id="simulacion">
+
+            <div class="section-heading">
+                <span class="section-number">03 / SIMULACIÓN</span>
+
+                <h2>Observa cómo aprende el mapa</h2>
+
+                <p>
+                    Ahora puedes observar el funcionamiento del
+                    algoritmo. Cada iteración selecciona un dato,
+                    encuentra la neurona ganadora y actualiza sus
+                    vecinas.
+                </p>
+            </div>
+
+            <!-- LEYENDA -->
+            <div class="legend">
+                <span><i class="dot data-dot"></i> Datos de entrada</span>
+                <span><i class="dot winner-dot"></i> Neurona ganadora</span>
+                <span><i class="dot neighbor-dot"></i> Neuronas vecinas</span>
+                <span><i class="dot normal-dot"></i> Otras neuronas</span>
+            </div>
+
+            <!-- BOTONES -->
+            <div class="simulation-controls">
+
+                <button id="next-iteration" class="primary-button">
+                    Siguiente iteración
+                </button>
+
+                <button id="auto-train" class="secondary-button">
+                    Entrenar automáticamente
+                </button>
+
+                <button id="reset" class="reset-button">
+                    Reiniciar
+                </button>
+
+            </div>
+
+            <!-- VISUALIZACIONES -->
+            <div class="visualization-container">
+
+                <div class="visualization-header">
+                    <div>
+                        <h3>Entrenamiento del SOM</h3>
+                        <p>Representación del aprendizaje de la red neuronal.</p>
+                    </div>
+
+                    <div class="iteration-box">
+                        <small>ITERACIÓN</small>
+                        <strong id="iteration-count">0</strong>
+                    </div>
+                </div>
+
+                <div class="canvas-grid">
+
+                    <div class="canvas-card">
+                        <h4>Espacio de características</h4>
+                        <p>Datos y pesos de las neuronas.</p>
+
+                        <canvas
+                            id="data-canvas"
+                            width="560"
+                            height="420">
+                        </canvas>
+                    </div>
+
+                    <div class="canvas-card">
+                        <h4>Mapa bidimensional</h4>
+                        <p>Distribución de las neuronas.</p>
+
+                        <canvas
+                            id="map-canvas"
+                            width="560"
+                            height="420">
+                        </canvas>
+                    </div>
+
+                </div>
+
+                <!-- PROGRESO -->
+                <div class="progress-container">
+
+                    <div class="progress-label">
+                        <span>Progreso del entrenamiento</span>
+                        <b id="progress-text">0 %</b>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div id="progress-fill"></div>
+                    </div>
+
+                    <div class="parameters">
+
+                        <span>
+                            Neurona ganadora:
+                            <b id="bmu-label">No seleccionada</b>
+                        </span>
+
+                        <span>
+                            Radio:
+                            <b id="radius-label">—</b>
+                        </span>
+
+                        <span>
+                            Aprendizaje:
+                            <b id="alpha-label">—</b>
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- EXPLICACIÓN DE LA SIMULACIÓN -->
+            <div class="explanation-grid">
+
+                <article class="explanation-card">
+                    <span>¿QUÉ ESTÁ OCURRIENDO?</span>
+
+                    <h3 id="live-title">
+                        El mapa está listo para aprender
+                    </h3>
+
+                    <p id="live-description">
+                        Avanza una iteración para observar cómo
+                        se selecciona una neurona y se actualizan
+                        sus pesos.
+                    </p>
+                </article>
+
+                <article class="explanation-card formula-card">
+                    <span>REGLA DE APRENDIZAJE</span>
+
+                    <div class="equation">
+                        wᵢ(t+1) = wᵢ(t) + α(t) · hᵢ(t) · [x − wᵢ(t)]
+                    </div>
+
+                    <p>
+                        α representa la tasa de aprendizaje y h
+                        representa la influencia de la vecindad.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- 4. RESULTADO -->
+        <section class="section" id="resultado">
+
+            <div class="section-heading">
+                <span class="section-number">04 / RESULTADO</span>
+
+                <h2>¿Qué sucede después del entrenamiento?</h2>
+
+                <p>
+                    Después de repetir el proceso, las neuronas
+                    adaptan sus pesos a la distribución de los datos.
+                    De esta manera, el mapa representa las similitudes
+                    entre los ejemplos.
+                </p>
+            </div>
+
+            <div class="result-grid">
+
+                <article class="result-card">
+                    <div class="result-visual initial-visual">
+                        <div class="random-lines"></div>
+                        <span>ANTES</span>
+                    </div>
+
+                    <div class="result-text">
+                        <h3>Mapa inicial</h3>
+
+                        <p>
+                            Las neuronas tienen pesos iniciales
+                            que todavía no representan la
+                            distribución de los datos.
+                        </p>
+                    </div>
+                </article>
+
+                <div class="result-arrow">→</div>
+
+                <article class="result-card">
+                    <div class="result-visual final-visual">
+                        <div class="organized-regions">
+                            <i></i><i></i><i></i>
+                        </div>
+                        <span>DESPUÉS</span>
+                    </div>
+
+                    <div class="result-text">
+                        <h3>Mapa organizado</h3>
+
+                        <p>
+                            Las neuronas se adaptan y las regiones
+                            cercanas representan patrones de datos
+                            similares.
+                        </p>
+                    </div>
+                </article>
+
+            </div>
+
+            <div class="final-note">
+                <strong>Idea principal:</strong>
+                el SOM utiliza aprendizaje no supervisado.
+                No necesita conocer previamente las categorías
+                de los datos, sino que aprende a organizarlos
+                según sus características y similitudes.
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <h3>SELF-ORGANIZING MAPS</h3>
+        <p>Visualización educativa del funcionamiento de los SOM.</p>
+    </footer>
+
+</body>
+</html>
